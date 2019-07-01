@@ -76,7 +76,7 @@ class Project:
         return self.client.logs(project=self.name, jobid=jobid)
         #return self.client.logs(project=self.name)
 
-    def deploy(self, async=False):
+    def deploy(self, _async=False):
         print("Deploying project {}. This may take a few moments ...".format(self.name))
         with tempfile.TemporaryDirectory() as tmpdir:
             archive = self.archive(tmpdir)
@@ -88,9 +88,9 @@ class Project:
                     archived_project=f,
                     size=size,
                     format=format,
-                    async=async
+                    _async=_async
                 )
-            if async:
+            if _async:
                 return Task(response['task_id'], self.SERVER_URL)
             else:
                 return response
